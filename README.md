@@ -14,20 +14,21 @@
 | `tools/eda.py` | 데이터 첫 파악(CSV·TSV·JSON·JSONL·XLSX·로그): 결측·고유값·표기 흔들림·형식 모양·범위·중복, 질문 거리 |
 | `tools/check_submit.py` | 제출 직전 점검: 필수 파일·테스트 수(0개면 exit 2, pytest/unittest/npm/go 자동 선택)·제출 설명의 세 요소·미커밋·비밀값, 권장(커밋 좌표·태그) |
 | `tools/checkpoint.py` | 시작 시각 기록, 경과·남은 시간, 지금 단계(순서만, 시간 배분은 정하지 않음) |
-| `.agents/skills/` | `interview-prep`(담당자 질문 후보), `design-review`(구조안 검토만), `unit-explain`(단위 설명·패턴 이유·틀리는 입력), `scope-check`(요구↔변경 대조·과설계·보안), `handoff`(상태 기록), `submit-docs`(제출 설명), superpowers 3종 |
+| `.agents/skills/` | 단계별 스킬: `kickoff`(시작 파악), `interview-prep`(질문 후보), `plan-check`(PLAN 검토), `design-review`(구조안 검토만), `build-unit`(테스트 먼저 단위 구현), `unit-explain`(단위 설명), `subagent-brief`(서브에이전트 지시서), `handoff`(상태 기록), `independent-check`(독립 재계산), `review-only`(고치지 않는 리뷰), `scope-check`(요구↔변경 대조), `submit-docs`(제출 설명), superpowers 3종 |
+| `CHEATSHEET.md` | 단계 순서와 단계별 한 줄 호출 |
 | `SOURCES.md` | 참고·차용 출처와 라이선스 |
 
 ## 사용 (작업 폴더 루트에서)
 ```bash
-git clone --depth 1 <이 저장소 URL> ~/kit
-bash ~/kit/setup.sh                 # AGENTS.md·템플릿·스킬 복사(기존 파일은 덮어쓰지 않음)
-python3 ~/kit/tools/checkpoint.py start --minutes <제한분>
-python3 ~/kit/tools/preflight.py
-python3 ~/kit/tools/scan.py
-python3 ~/kit/tools/eda.py <데이터 파일…>      # 데이터가 있을 때
+git clone --depth 1 <이 저장소 URL> ~/.kit     # 작업 폴더가 홈이면 숨김 폴더로
+bash ~/.kit/setup.sh                 # AGENTS.md·템플릿·스킬 복사(기존 파일은 덮어쓰지 않음)
+python3 ~/.kit/tools/checkpoint.py start --minutes <제한분>
+python3 ~/.kit/tools/preflight.py
+python3 ~/.kit/tools/scan.py
+python3 ~/.kit/tools/eda.py <데이터 파일…>      # 데이터가 있을 때
 codex                               # 첫 프롬프트: "AGENTS.md를 읽고 확인한 규칙 5줄만 요약해. 사용 가능한 스킬 이름도."
 # ... 제출 전
-python3 ~/kit/tools/check_submit.py <필수 제출물...>
+python3 ~/.kit/tools/check_submit.py <필수 제출물...>
 ```
 
 ## 테스트

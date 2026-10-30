@@ -23,6 +23,8 @@ def walk(root):
     for d, dirs, files in os.walk(root):
         dirs[:] = sorted(x for x in dirs if x not in SKIP and not x.startswith("."))
         for f in sorted(files):
+            if f.startswith("."):
+                continue  # 환경 파일(.bashrc 등) 제외
             yield os.path.relpath(os.path.join(d, f), root)
 
 

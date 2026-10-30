@@ -141,5 +141,31 @@ class SetupTest(unittest.TestCase):
         self.assertIn(".kit_start", ignore)
 
 
+class HomeWorkspaceTest(unittest.TestCase):
+    def test_setup_in_home_ignores_dotfiles_and_nested_kit(self):
+        kit_src = os.path.dirname(TOOLS)
+        with tempfile.TemporaryDirectory() as home:
+            for f in [".bashrc", ".profile", "README.md"]:
+                open(os.path.join(home, f), "w").close()
+            os.makedirs(os.path.join(home, ".config"))
+            subprocess.run(["git", "init", "-q"], cwd=home, check=True)
+            kit = os.path.join(home, ".kit")
+            subprocess.run(["cp", "-R", kit_src, kit], check=True)
+            env = dict(os.environ, HOME=home)
+            r = subprocess.run(["bash", os.path.join(kit, "setup.sh")], cwd=home, env=env, capture_output=True, text=True)
+            ignore = open(os.path.join(home, ".gitignore")).read().split()
+            skill = open(os.path.join(home, ".agents", "skills", "kickoff", "SKILL.md")).read()
+            status = subprocess.run(["git", "status", "--short", "-uall"], cwd=home, capture_output=True, text=True).stdout
+            scan = run([os.path.join(kit, "tools", "scan.py")], home).stdout
+        self.assertEqual(r.returncode, 0, r.stderr)
+        for p in [".kit/", ".bashrc", ".profile", ".config/"]:
+            self.assertIn(p, ignore)
+        self.assertIn(kit, skill)
+        self.assertNotIn("<kit>", skill)
+        self.assertNotIn(".bashrc", status)
+        self.assertNotIn(".kit/", status)
+        self.assertNotIn(".bashrc", scan)
+
+
 if __name__ == "__main__":
     unittest.main()
