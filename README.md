@@ -15,7 +15,7 @@
 | `tools/check_submit.py` | 제출 직전 점검: 필수 파일·테스트 수(0개면 exit 2, pytest/unittest/npm/go 자동 선택)·제출 설명의 세 요소·미커밋·비밀값, 권장(커밋 좌표·태그) |
 | `tools/checkpoint.py` | 시작 시각 기록, 경과·남은 시간, 지금 단계(순서만, 시간 배분은 정하지 않음) |
 | `.agents/skills/` | 단계별 스킬: `kickoff`(시작 파악), `interview-prep`(질문 후보), `plan-check`(PLAN 검토), `design-review`(구조안 검토만), `build-unit`(테스트 먼저 단위 구현), `unit-explain`(단위 설명), `subagent-brief`(서브에이전트 지시서), `handoff`(상태 기록), `independent-check`(독립 재계산), `review-only`(고치지 않는 리뷰), `scope-check`(요구↔변경 대조), `submit-docs`(제출 설명), superpowers 3종 |
-| `CHEATSHEET.md` | 단계 순서와 단계별 한 줄 호출 |
+| `WORKFLOW.md` | 작업 순서와 단계별 스킬 |
 | `SOURCES.md` | 참고·차용 출처와 라이선스 |
 
 ## 사용 (작업 폴더 루트에서)
