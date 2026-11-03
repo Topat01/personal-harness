@@ -2,7 +2,7 @@
 
 | 출처 | 라이선스 | 이 저장소에서 쓴 방식 |
 |---|---|---|
-| [obra/superpowers](https://github.com/obra/superpowers) | MIT | `test-driven-development`, `verification-before-completion`, `systematic-debugging` 스킬을 원문 그대로 포함(`.agents/skills/superpowers/`, LICENSE·UPSTREAM 동봉). 시험 압박 시나리오 파일 등 일부 부속 파일은 제외 |
+| [obra/superpowers](https://github.com/obra/superpowers) | MIT | 원문 미포함. 디버깅 순서(재현 → 원인 → 최소 수정)와 "확인 전 완료 주장 금지" 아이디어만 AGENTS.md에 한국어로 반영 |
 | [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills) | 표기 없음 | 원문을 복사하지 않고 4원칙의 취지를 한국어로 다시 써서 AGENTS.md 1절에 반영 |
 | [openai/skills](https://github.com/openai/skills) `define-goal`, `security-best-practices` | 저장소 라이선스 따름 | 원문 미포함. 측정 가능한 성공 기준, 보안 점검 항목의 아이디어만 반영 |
 | [hamjoon2003/sk-hynix-2nd-harness](https://github.com/hamjoon2003/sk-hynix-2nd-harness) | MIT | 아이디어 반영(환경 점검, "아무것도 검사 안 됨" exit 2, NOT_RUN 표기). 코드는 새로 작성 |

@@ -19,9 +19,14 @@ MARKERS = ["package.json", "pyproject.toml", "requirements.txt", "setup.py", "Ma
            "docker-compose.yml", ".env.example", "pytest.ini", "tsconfig.json", "go.mod", "Cargo.toml", "pom.xml"]
 
 
+def is_harness(path):
+    """이 하네스 폴더(이름이 무엇이든)는 과제 파일이 아니다."""
+    return os.path.exists(os.path.join(path, "setup.sh")) and os.path.exists(os.path.join(path, "tools", "scan.py"))
+
+
 def walk(root):
     for d, dirs, files in os.walk(root):
-        dirs[:] = sorted(x for x in dirs if x not in SKIP and not x.startswith("."))
+        dirs[:] = sorted(x for x in dirs if x not in SKIP and not x.startswith(".") and not is_harness(os.path.join(d, x)))
         for f in sorted(files):
             if f.startswith("."):
                 continue  # 환경 파일(.bashrc 등) 제외
@@ -31,8 +36,7 @@ def walk(root):
 def main():
     root = sys.argv[1] if len(sys.argv) > 1 else "."
     files = list(walk(root))
-    readmes = [f for f in files if re.search(r"(^|/)(readme|과제|안내|task|problem|instructions?)[^/]*\.(md|txt)$", f, re.I)
-               and not f.startswith(("PLAN", "DECISIONS", "HANDOFF", "SUBMIT"))]
+    readmes = [f for f in files if re.search(r"(^|/)(readme|과제|안내|task|problem|instructions?)[^/]*\.(md|txt)$", f, re.I)]
     print("== 과제 안내 핵심 줄 ==")
     for r in readmes[:5]:
         print(f"## {r}")

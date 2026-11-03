@@ -7,28 +7,28 @@
 ## 구성
 | 경로 | 내용 |
 |---|---|
-| `AGENTS.md` | 에이전트 작업 지침: 원칙 4개, 역할, 환경·증거 규칙, **단계별 사람/에이전트 역할과 스킬 표**, 과제 유형별 첫 단계, 질문·문서 규칙 |
-| `templates/` | PLAN · DECISIONS · HANDOFF · SUBMIT 골격 |
+| `AGENTS.md` | 에이전트 작업 지침: 원칙 6개, 역할, 진행 순서, **매 단계 쉬운 말 설명 규칙**, 가벼운 테스트·검증, 서비스형 결과물 점검, 환경 규칙 |
+| `templates/NOTES.md` | 작업 노트 한 장: 과제 요약, 확인한 것, 판단 기준과 모듈 지도, 대표 흐름, 단계별 설명, 테스트·재현, 엣지케이스·AI 오류, 예상 질문 |
 | `tools/preflight.py` | 환경 3분 점검(Python·패키지·명령·시간 파싱 함정·git·0.0.0.0) |
 | `tools/scan.py` | 작업 폴더 첫 파악: 과제 안내 핵심 줄, 기존 코드·테스트·실행 명령, 데이터·문서 목록(과제 유형 판별용) |
 | `tools/eda.py` | 데이터 첫 파악(CSV·TSV·JSON·JSONL·XLSX·로그): 결측·고유값·표기 흔들림·형식 모양·범위·중복, 질문 거리 |
-| `tools/check_submit.py` | 제출 직전 점검: 필수 파일·테스트 수(0개면 exit 2, pytest/unittest/npm/go 자동 선택)·제출 설명의 세 요소·미커밋·비밀값, 권장(커밋 좌표·태그) |
-| `tools/checkpoint.py` | 시작 시각 기록, 경과·남은 시간, 지금 단계(순서만, 시간 배분은 정하지 않음) |
-| `.agents/skills/` | 단계별 스킬: `kickoff`(시작 파악), `interview-prep`(질문 후보), `plan-check`(PLAN 검토), `design-review`(구조안 검토만), `build-unit`(테스트 먼저 단위 구현), `unit-explain`(단위 설명), `subagent-brief`(서브에이전트 지시서), `handoff`(상태 기록), `independent-check`(독립 재계산), `review-only`(고치지 않는 리뷰), `scope-check`(요구↔변경 대조), `submit-docs`(제출 설명), superpowers 3종 |
+| `tools/check_submit.py` | 제출 직전 점검: 필수 파일·테스트 수(0개면 exit 2, pytest/unittest/npm/go 자동 선택)·과제 지시문 README 변경 여부(처음 들어온 커밋 기준)·지시문에 언급된 산출물 파일·미커밋·비밀값, 권장(태그·README 미커밋), `--docker`로 이미지 빌드 확인(docker가 없으면 NOT_RUN 안내) |
+| `.agents/skills/` | `kickoff`(시작 파악), `final-docs`(요구 문서·예상 질문·설명 줄 점검) |
 | `SOURCES.md` | 참고·차용 출처와 라이선스 |
 
 ## 사용 (작업 폴더 루트에서)
 ```bash
-git clone --depth 1 <이 저장소 URL> ~/.kit     # 작업 폴더가 홈이면 숨김 폴더로
+git clone --depth 1 <이 저장소 URL> ~/.kit     # 숨김 폴더로(작업 폴더가 홈이어도 과제 파일과 섞이지 않게)
 bash ~/.kit/setup.sh                 # AGENTS.md·템플릿·스킬 복사(기존 파일은 덮어쓰지 않음)
-python3 ~/.kit/tools/checkpoint.py start --minutes <제한분>
 python3 ~/.kit/tools/preflight.py
 python3 ~/.kit/tools/scan.py
 python3 ~/.kit/tools/eda.py <데이터 파일…>      # 데이터가 있을 때
-codex                               # 첫 프롬프트: "AGENTS.md를 읽고 확인한 규칙 5줄만 요약해. 사용 가능한 스킬 이름도."
+codex                               # 첫 요청: "kickoff 스킬 실행해"
 # ... 제출 전
-python3 ~/.kit/tools/check_submit.py <필수 제출물...>
+python3 ~/.kit/tools/check_submit.py <필수 제출물...> [--docker]
 ```
+
+하네스를 다른 경로로 다시 받았다면 작업 폴더의 `AGENTS.md`·`.agents/`를 지우고 `setup.sh`를 다시 실행한다(이미 있는 파일은 건너뛰므로).
 
 ## 테스트
 `python3 -m pytest -q tests` (또는 `python3 -m unittest discover -s tests`)
