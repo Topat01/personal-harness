@@ -15,6 +15,7 @@ else
   cp "$tmp" AGENTS.md; echo "복사: AGENTS.md"
 fi
 rm -f "$tmp"
+copy "$KIT/templates/SPEC.md" SPEC.md
 copy "$KIT/templates/NOTES.md" NOTES.md
 mkdir -p .agents/skills
 for d in "$KIT"/.agents/skills/*; do copy "$d" ".agents/skills/$(basename "$d")"; done
@@ -34,6 +35,6 @@ echo
 echo "다음 순서:"
 echo "  python3 $KIT/tools/preflight.py && python3 $KIT/tools/scan.py"
 echo "  git status --short     # 과제와 무관한 파일이 보이면 .gitignore에 추가"
-echo "  git add AGENTS.md NOTES.md .agents .gitignore && git commit -m \"chore: 공개 하네스 적용 ($SRC)\""
+echo "  git add AGENTS.md SPEC.md NOTES.md .agents .gitignore && git commit -m \"chore: 공개 하네스 적용 ($SRC)\""
 echo "  (README.md 등 과제 파일이 아직 커밋 안 됐으면 받은 그대로 먼저 커밋)"
 echo "  codex 첫 요청: kickoff 스킬 실행해"

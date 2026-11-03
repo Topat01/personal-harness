@@ -120,7 +120,7 @@ class SetupTest(unittest.TestCase):
             agents = open(os.path.join(d, "AGENTS.md")).read()
             skills = sorted(os.listdir(os.path.join(d, ".agents", "skills")))
             ignore = open(os.path.join(d, ".gitignore")).read()
-            notes_exists = os.path.exists(os.path.join(d, "NOTES.md"))
+            notes_exists = os.path.exists(os.path.join(d, "NOTES.md")) and os.path.exists(os.path.join(d, "SPEC.md"))
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertNotIn("~/kit", agents)
         self.assertNotIn("<kit>", agents)
@@ -284,7 +284,8 @@ class HarnessDocsTest(unittest.TestCase):
         self.assertLessEqual(len(self.read("AGENTS.md").splitlines()), 60)
         self.assertLessEqual(len(self.read("templates", "NOTES.md").splitlines()), 60)
         skills = os.listdir(os.path.join(self.root, ".agents", "skills"))
-        self.assertLessEqual(len(skills), 3)
+        self.assertLessEqual(len(skills), 4)
+        self.assertLessEqual(len(self.read("templates", "SPEC.md").splitlines()), 40)
 
     def test_skills_are_one_level_deep_and_referenced(self):
         agents = self.read("AGENTS.md")
@@ -294,6 +295,8 @@ class HarnessDocsTest(unittest.TestCase):
 
     def test_key_rules_present(self):
         agents, notes = self.read("AGENTS.md"), self.read("templates", "NOTES.md")
+        spec = self.read("templates", "SPEC.md")
+        engine = self.read(".agents", "skills", "engine", "SKILL.md")
         kickoff = self.read(".agents", "skills", "kickoff", "SKILL.md")
         self.assertIn("지나치게 잘게 쪼개거나", agents)
         self.assertIn("기능당 1~3개", agents)
@@ -302,7 +305,10 @@ class HarnessDocsTest(unittest.TestCase):
         self.assertIn("퇴화하지 않는", agents)
         self.assertIn("내 말:", notes)
         self.assertIn("담당자 질문 초안", kickoff)
-        self.assertIn("요구 목록", notes)
+        for k in ["| H1", "| R1", "| Q1", "질문(사람)"]:
+            self.assertIn(k, spec)
+        self.assertIn("퇴화하지 않는", engine)
+        self.assertIn("최대 3개", engine)
         self.assertIn("비교 결과", notes)
         self.assertIn("[AI]", notes)
         for n in range(9):
