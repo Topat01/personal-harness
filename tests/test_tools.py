@@ -309,6 +309,8 @@ class HarnessDocsTest(unittest.TestCase):
             self.assertIn(k, spec)
         self.assertIn("퇴화하지 않는", engine)
         self.assertIn("최대 3개", engine)
+        self.assertIn("evaluate", engine)
+        self.assertIn("문제 틀 바꾸기", agents)
         self.assertIn("비교 결과", notes)
         self.assertIn("[AI]", notes)
         for n in range(9):
