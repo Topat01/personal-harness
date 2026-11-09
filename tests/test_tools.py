@@ -303,7 +303,7 @@ class HarnessDocsTest(unittest.TestCase):
         self.assertIn("--docker", agents)
         self.assertIn("지금 입력과 맞지 않으면", agents)
         self.assertIn("퇴화하지 않는", agents)
-        self.assertIn("내 말:", notes)
+        self.assertIn("확인 퀴즈", agents)
         self.assertIn("담당자 질문 초안", kickoff)
         for k in ["| H1", "| R1", "| Q1", "질문(사람)"]:
             self.assertIn(k, spec)
