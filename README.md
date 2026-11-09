@@ -15,6 +15,7 @@
 | `tools/eda.py` | 데이터 첫 파악(CSV·TSV·JSON·JSONL·XLSX·로그): 결측·고유값·표기 흔들림·형식 모양·범위·중복, 질문 거리 |
 | `tools/check_submit.py` | 제출 직전 점검: 필수 파일·테스트 수(0개면 exit 2, pytest/unittest/npm/go 자동 선택)·과제 지시문 README 변경 여부(처음 들어온 커밋 기준)·지시문에 언급된 산출물 파일·미커밋·비밀값, 권장(태그·README 미커밋), `--docker`로 이미지 빌드 확인(docker가 없으면 NOT_RUN 안내) |
 | `.agents/skills/` | `kickoff`(시작 파악·SPEC 작성), `scaffold`(서비스 뼈대), `engine`(핵심 로직·검증 함수·지표), `final-docs`(요구 문서·예상 질문·설명 줄 점검) |
+| `docs/ALGORITHMS.md` | 문제 꼴별 알려진 방법과 평가 함정(이상 감지, 원인 찾기, 경로, 커버리지, 스케줄링, 근무표, 배정, 추천, 블랙박스 최적화 등) |
 | `SOURCES.md` | 참고·차용 출처와 라이선스 |
 
 ## 사용 (작업 폴더 루트에서)
