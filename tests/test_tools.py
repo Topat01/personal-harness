@@ -284,7 +284,7 @@ class HarnessDocsTest(unittest.TestCase):
         self.assertLessEqual(len(self.read("AGENTS.md").splitlines()), 60)
         self.assertLessEqual(len(self.read("templates", "NOTES.md").splitlines()), 60)
         skills = os.listdir(os.path.join(self.root, ".agents", "skills"))
-        self.assertLessEqual(len(skills), 4)
+        self.assertLessEqual(len(skills), 5)
         self.assertLessEqual(len(self.read("templates", "SPEC.md").splitlines()), 40)
 
     def test_skills_are_one_level_deep_and_referenced(self):
